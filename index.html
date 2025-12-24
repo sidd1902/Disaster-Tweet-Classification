@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disaster Tweet Classifier</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            color: #5100ff;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        textarea {
+            width: 100%;
+            height: 100px;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+            background-color: #fff;
+        }
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Disaster Tweet Classification</h1>
+    <p>Please enter the tweet text below and click "Classify" to determine if it relates to a disaster.</p>
+    <form method="POST" action="{{ url_for('predict') }}">
+        <label for="tweet">Enter Tweet:</label>
+        <textarea name="tweet" placeholder="Paste your tweet here..." required></textarea>
+        <br>
+        <button type="submit">Classify</button>
+    </form>
+
+    {% if prediction %}
+        <div class="result">
+            <h3>Prediction: {{ prediction }}</h3>
+            <p><strong>Tweet:</strong> {{ tweet }}</p>
+        </div>
+    {% elif error %}
+        <div class="result error">
+            <p><strong>Error:</strong> {{ error }}</p>
+        </div>
+    {% endif %}
+</body>
+</html>
